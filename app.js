@@ -42,7 +42,11 @@ app.route('/users/:id').get((req, res) => {
         res.status(404).json({ message: 'User not found' });
     }
 });
-
+app.get("/users/:firstName", (req, res) => {
+    const user = users.find(u => u.firstName === req.params.firstName);
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json(user);
+});
 app.post('/users', (req, res) => {
     const newUser = {
         id: users.length + 1,
